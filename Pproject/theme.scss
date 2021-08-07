@@ -1,0 +1,40 @@
+$white: #fff;
+$black-squeeze: #f7fafc;
+$solitude: #ebf8ff;
+$catskil-white: #edf2f7;
+$grey-nurse: #cddbc8;
+$sober-gray: #00000080;
+$san-juan: #2a4365;
+$black: #000;
+$malibu: #61c8f3;
+$brick: #c16161;
+$contessa: #c16161;
+$anzac: #e5b945;
+$goblin: #3d884d;
+
+// ----- Color theme variables -----
+// Variables for color styling generic components, etc
+// Should have descriptive and unique names, ending with '-color'
+// On the right we should have a color variable from above
+$main-color: $san-juan;
+$primary-button-color: $main-color;
+$secondary-button-color: $white;
+$delete-button-color: $brick;
+$logo-color: $malibu;
+$input-background-color: $catskil-white;
+$input-color: $sober-gray;
+$sidebar-background-color: $catskil-white;
+$sidebar-icon-color: $main-color;
+$td-backgroud-color: $black-squeeze;
+$th-border-bottom-color: $catskil-white;
+
+// ----- Size variables
+// Sizes for components that appear in multiple places
+// Should have descriptive and unique names
+// Note: Let's keep this sections short
+$button-font-size: 15px;
+$button-border-radius: 5px;
+$page-title-font-size: 30px;
+$page-content-font-size: 18px;
+$title-margin: 5px;
+$title-padding: 5px;

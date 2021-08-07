@@ -1,0 +1,46 @@
+@import 'theme';
+
+$margin-icon: 10px;
+
+.button {
+  border-radius: $button-border-radius;
+
+  cursor: pointer;
+
+  font-size: $button-font-size;
+  font-style: normal;
+  font-weight: bold;
+
+  line-height: 20px;
+  padding: 14px 25px;
+
+  &:hover {
+    opacity: 0.6;
+  }
+
+  &.primary {
+    background-color: $primary-button-color;
+    border: 2px solid $primary-button-color;
+    color: $white;
+  }
+
+  &.secondary {
+    background-color: $secondary-button-color;
+    border: 2px solid $main-color;
+    color: $main-color;
+  }
+
+  &.delete {
+    background-color: $delete-button-color;
+    border: 2px solid $delete-button-color;
+    color: $white;
+  }
+
+  .button-icon {
+    margin-right: $margin-icon;
+  }
+}
+
+.small {
+  padding: 9px 15px;
+}
