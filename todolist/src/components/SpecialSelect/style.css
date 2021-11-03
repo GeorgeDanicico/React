@@ -1,0 +1,22 @@
+.select-container {
+    margin: 1rem;
+    position: relative;
+    overflow: hidden;
+  }
+  .filter-todo {
+    color: #ff6f47;
+    font-family: "Poppins", sans-serif;
+    cursor: pointer;
+    width: 12rem;
+  }
+
+  .select-container::after {
+    content: "\25BC";
+    position: absolute;
+    top: 0;
+    right: 0;
+    padding: 1rem;
+    background: #ff6f47;
+    cursor: pointer;
+    pointer-events: none;
+  }

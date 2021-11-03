@@ -1,24 +1,18 @@
 import React from 'react';
-import List from '../List/List';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'; 
 import { faPlus } from '@fortawesome/free-solid-svg-icons';
+import SpecialInput from '../SpecialInput/SpecialInput';
+import List from '../List/List';
+import SpecialButton from '../SpecialButton/SpecialButton';
+import SpecialSelect from '../SpecialSelect/SpecialSelect';
 
 const Form = () => {
     return (
         <div>
             <form>
-                <input type="text" className="todo-input" />
-                <button className="todo-button" type="submit" >
-                    <FontAwesomeIcon icon={faPlus} />
-                </button>
+                <SpecialInput />
+                <SpecialButton buttonType="default" buttonIcon={faPlus} />
 
-                <div className="select" >
-                    <select name="todos" className="filter-todo">
-                        <option value="all">All</option>
-                        <option value="completed">Completed</option>
-                        <option value="uncompleted">Uncompleted</option>
-                    </select>
-                </div>
+                <SpecialSelect value="" onChange={() => {}} />
             </form>
 
             <List />
