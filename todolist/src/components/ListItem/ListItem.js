@@ -4,7 +4,7 @@ import { faEdit, faTimes } from '@fortawesome/free-solid-svg-icons';
 import SpecialButton from '../SpecialButton/SpecialButton';
 import './style.css'
 
-const ListItem = ({ text, ...rest }) => {
+const ListItem = ({ text, onDelete, ...rest }) => {
     return (
         <div {...rest}>
             <div className="content" >
@@ -13,7 +13,7 @@ const ListItem = ({ text, ...rest }) => {
 
             <div className="buttons" >
                 <SpecialButton buttonType="default" buttonIcon={faEdit} />
-                <SpecialButton buttonType="delete" buttonIcon={faTimes} />
+                <SpecialButton buttonType="delete" buttonIcon={faTimes} onClick={onDelete}/>
             </div>
         </div>
     )
