@@ -20,11 +20,15 @@ const SpecialInput = React.forwardRef(({value, onChange, inputButtonIcon,
 SpecialInput.propTypes = {
     value: PropTypes.string,
     onChange: PropTypes.func,
+    inputButtonIcon: PropTypes.object,
+    inputButtonClick: PropTypes.func,
 };
 
 SpecialInput.defaultProps = {
     value: "",
     onChange: () => {},
+    inputButtonIcon: null,
+    inputButtonClick: () => {},
 }
 
 export default SpecialInput;

@@ -5,10 +5,10 @@ import './style.css'
 const SpecialSelect = ({value, onChange}) => {
     return (
         <div className="select-container" >
-            <select name="todos" className="filter-todo">
-                <option value="all">All</option>
-                <option value="completed">Completed</option>
-                <option value="uncompleted">Uncompleted</option>
+            <select name="todos" className="filter-todo" value={value} onChange={onChange}>
+                <option value="0">All</option>
+                <option value="2">Completed</option>
+                <option value="1">Uncompleted</option>
             </select>
         </div>
     )
