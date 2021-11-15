@@ -1,16 +1,9 @@
 import React, { useEffect, useRef } from "react";
 import ReactEmoji from 'react-emoji';
+import { MessageProp } from "../../utils/interfaces";
 import './style.css';
 
-interface Props {
-    message: {
-        user: string,
-        text: string,
-    },
-    name: string,
-}
-
-const Message: React.FC<Props> = ({ message, name}) => {
+const Message: React.FC<MessageProp> = ({ message, name}) => {
     const isSentByCurrentUser = useRef(false);
 
     const trimmedName = name.trim().toLowerCase();

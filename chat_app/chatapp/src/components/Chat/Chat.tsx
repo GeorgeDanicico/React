@@ -6,20 +6,16 @@ import { useLocation } from "react-router";
 import InfoBar from "../InfoBar/InfoBar";
 import InputComponent from "../InputComponent/InputComponent";
 import Messages from "../Messages/Messages";
+import { messagesObj } from "../../utils/interfaces";
 import './style.css';
 
 let socket;
-
-interface obj {
-    user: string,
-    text: string,
-}
 
 const Chat: React.FC = () => {
     const [name, setName] = useState<string>('');
     const [room, setRoom] = useState<string>('');
     const [message, setMessage] = useState<string>('');
-    const [messages, setMessages] = useState<obj[]>([]);
+    const [messages, setMessages] = useState<messagesObj[]>([]);
     const ENDPOINT = 'localhost:5000';
     const location = useLocation()
 

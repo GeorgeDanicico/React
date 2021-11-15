@@ -1,14 +1,10 @@
 import React from 'react';
-
+import Button from '../Button/ButtonComponent';
+import { faPaperPlane } from '@fortawesome/free-solid-svg-icons';
+import { InputProp } from '../../utils/interfaces';
 import './style.css';
 
-interface Props {
-    message: string,
-    setMessage: React.Dispatch<React.SetStateAction<string>>,
-    sendMessage: (e) => void,
-}
-
-const InputComponent: React.FC<Props> = ({ message, setMessage, sendMessage}) => {
+const InputComponent: React.FC<InputProp> = ({ message, setMessage, sendMessage}) => {
     return (
         <form className="form">
             <input 
@@ -20,9 +16,7 @@ const InputComponent: React.FC<Props> = ({ message, setMessage, sendMessage}) =>
                 onKeyPress={(e) => e.key === 'Enter' ? sendMessage(e) : null}
             />
 
-            <button className="sendButton" onClick={(event) => sendMessage(event)}>
-                Send
-            </button>
+            <Button btnType="primary" onClick={(event) => sendMessage(event)} btnIcon={faPaperPlane} />
         </form>
     );
 }

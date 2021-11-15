@@ -24,9 +24,12 @@
   }
   
   .onlineIcon {
+    font-size: 10px;
+    color: greenyellow;
     margin-right: 5%;
   }
 
   .closeIcon {
-      margin-right: 10px;
+    color: white;
+    font-size: 20px;
   }

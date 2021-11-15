@@ -1,0 +1,16 @@
+.buttons{
+    border:0;
+    border-radius: 10px;
+    transition: background-color 0.4s ease;
+}
+
+.buttons.primary, .buttons.danger {
+    background-color:#2979FF;
+    color: white;
+    padding: 5px 10px;
+    font-size: 20px;
+}
+
+.buttons.danger:hover {
+    background-color: brown;
+}
