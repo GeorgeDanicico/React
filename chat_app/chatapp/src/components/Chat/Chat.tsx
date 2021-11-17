@@ -7,6 +7,10 @@ import InfoBar from "../InfoBar/InfoBar";
 import InputComponent from "../InputComponent/InputComponent";
 import Messages from "../Messages/Messages";
 import { messagesObj } from "../../utils/interfaces";
+import { useAppDispatch, useAppSelector } from "../../utils/hooks";
+import messageActions from "../../redux/actions/messageActions";
+import TextContainer from "../TextContainer/TextContainer";
+import { User } from "../../utils/interfaces";
 import './style.css';
 
 let socket;
@@ -14,10 +18,13 @@ let socket;
 const Chat: React.FC = () => {
     const [name, setName] = useState<string>('');
     const [room, setRoom] = useState<string>('');
+    const [roomUsers, setRoomUsers] = useState<User[]>([]);
     const [message, setMessage] = useState<string>('');
     const [messages, setMessages] = useState<messagesObj[]>([]);
     const ENDPOINT = 'localhost:5000';
     const location = useLocation()
+    const chatMessages = useAppSelector((state) => state.message.messages)
+    const dispatch = useAppDispatch();
 
     useEffect(() => {
         const data = queryString.parse(location.search);
@@ -38,11 +45,20 @@ const Chat: React.FC = () => {
     }, [ENDPOINT, location.search]);
 
     useEffect(() => {
+        socket.on('roomData', (roomData) => {
+            setRoom(roomData.room);
+            setRoomUsers(roomData.users);
+        })
+
+        console.log(roomUsers);
+    }, [roomUsers]);
+
+    useEffect(() => {
         socket.on('message', (message) => {
             setMessages([...messages, message]);
         })
 
-        console.log(messages);
+        dispatch(messageActions.newMessage(messages));
     }, [messages]);
 
     const sendMessage = (event) => {
@@ -61,6 +77,8 @@ const Chat: React.FC = () => {
                 <Messages messages={messages} name={name} />
                 <InputComponent message={message} setMessage={setMessage} sendMessage={sendMessage} />
             </div>
+
+            <TextContainer users={roomUsers}/>
         </div>
     )
 }

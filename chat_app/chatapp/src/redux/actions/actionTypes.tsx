@@ -1,0 +1,4 @@
+export const MESSAGES_ACTIONS = {
+    RECEIVED: "MESSAGE.RECEIVED",
+    SENT: "MESSAGE.SENT",
+}

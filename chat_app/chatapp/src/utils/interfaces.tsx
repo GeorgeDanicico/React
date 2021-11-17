@@ -15,6 +15,16 @@ export interface InfoBarProp {
     room: string,
 }
 
+export interface User {
+    id: string,
+    name: string,
+    room: string,
+}
+
+export interface TextContainerProp {
+    users: User[],
+}
+
 export interface messagesObj {
     user: string,
     text: string,

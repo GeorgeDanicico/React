@@ -1,0 +1,25 @@
+
+.text-container {
+    margin: 10px;   
+}
+
+.text-container .text-label {
+    height:20px;
+    width: 150px;
+    background-color: #2979FF;
+    border-radius: 10px 10px 0 0;
+    font-size: 14px;
+    text-align: center;
+    color: white;
+}
+
+.users-container {
+    background-color: white;
+    height: 180px;
+    width: 150px;
+    border-radius: 0 0 10px 10px;
+}
+
+.users-container .user-box {
+    padding: 0 15px;
+}
