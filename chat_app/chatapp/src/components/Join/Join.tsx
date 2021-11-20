@@ -28,7 +28,6 @@ const Join: React.FC = () => {
             {/* </Link> */}
         </div>
         <Modal show={showModal} handleClose={handleCancel} />
-
     </div>)
 }
 
