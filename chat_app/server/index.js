@@ -36,7 +36,7 @@ io.on('connection', (socket) => {
 
         if (user) {
             io.to(user.room).emit('message', { user: user.name, text: message });
-            io.to(user.room).emit('roomData', { room: user.room, text: getUsersInRoom(user.room) })
+            io.to(user.room).emit('roomData', { room: user.room, users: getUsersInRoom(user.room) })
         }
         callback();
     })

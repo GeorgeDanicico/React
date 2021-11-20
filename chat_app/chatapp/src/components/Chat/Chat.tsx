@@ -39,7 +39,7 @@ const Chat: React.FC = () => {
         socket.emit('join', { name: data.name, room: data.room }, () => {});
 
         return () => {
-            socket.emit('disconnect')
+            socket.disconnect();
             socket.off(); // close the socket.
         }
     }, [ENDPOINT, location.search]);

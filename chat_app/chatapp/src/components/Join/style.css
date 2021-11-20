@@ -19,12 +19,14 @@ html, body {
   
   .joinInnerContainer {
     width: 20%;
+    animation: fadeIn 2s;
   }
   
   .joinInput {
     border-radius: 0;
     padding: 15px 20px;
     width: 100%;
+    box-sizing: border-box;
   }
   
   .heading {
@@ -58,8 +60,17 @@ html, body {
     .joinInnerContainer {
       width: 90%;
     }
-  
-  
+  }
+
+  @keyframes fadeIn {
+    from { 
+      opacity: 0;
+      left: 0;
+    }
+    to { 
+      opacity: 1;
+      left: 100%;
+    }
   }
   
   button:focus {

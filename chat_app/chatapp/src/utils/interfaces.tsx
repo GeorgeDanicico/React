@@ -39,3 +39,8 @@ export interface MessageProp {
     message: messagesObj,
     name: string,
 }
+
+export interface ModalProp {
+    show: boolean,
+    handleClose: () => void,
+}

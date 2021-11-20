@@ -6,9 +6,16 @@
 
 .buttons.primary, .buttons.danger {
     background-color:#2979FF;
+}
+
+.buttons.primary, .buttons.danger, .buttons.normal {
     color: white;
     padding: 5px 10px;
     font-size: 20px;
+}
+
+.buttons.normal {
+
 }
 
 .buttons.danger:hover {
