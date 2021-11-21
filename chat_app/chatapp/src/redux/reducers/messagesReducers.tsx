@@ -1,5 +1,4 @@
 import { MESSAGES_ACTIONS } from "../actions/actionTypes";
-import { AnyAction } from "redux";
 
 const initialState = {
     messages: [],
