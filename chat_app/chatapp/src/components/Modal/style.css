@@ -13,7 +13,8 @@
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
-    height: 175px;
+    min-height: 100px;
+    max-height: 175px;
     width: 350px;
     animation: fadeIn 1s, slideIn 1s;  
 }

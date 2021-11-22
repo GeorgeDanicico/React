@@ -16,14 +16,15 @@ import './style.css';
 let socket;
 
 const Chat: React.FC = () => {
+    const chatMessages = useAppSelector((state) => state.message.messages)
+
     const [name, setName] = useState<string>('');
     const [room, setRoom] = useState<string>('');
     const [roomUsers, setRoomUsers] = useState<User[]>([]);
     const [message, setMessage] = useState<string>('');
-    const [messages, setMessages] = useState<messagesObj[]>([]);
+    const [messages, setMessages] = useState<messagesObj[]>(chatMessages);
     const ENDPOINT = 'localhost:5000';
-    const location = useLocation()
-    const chatMessages = useAppSelector((state) => state.message.messages)
+    const location = useLocation();
     const dispatch = useAppDispatch();
 
     useEffect(() => {

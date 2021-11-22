@@ -1,11 +1,20 @@
-import React, { useEffect, useRef } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import { faTimes } from "@fortawesome/free-solid-svg-icons";
 import { ModalProp } from "../../utils/interfaces";
 import Button from "../Button/ButtonComponent";
 import './style.css'
 
-const Modal:React.FC<ModalProp> = ({ show, handleClose }) => {
+const Modal:React.FC<ModalProp> = ({ 
+    show, handleClose, handleSave, title, modalType, content, 
+}) => {
     const modalRef = useRef<HTMLDivElement>();
+    const [modalInputValue, setModalInputValue] = useState<string>('');
+    const [addPassword, setAddPassword] = useState<boolean>(false);
+
+    const setPassword = () => {
+        localStorage.setItem('roomPass', modalInputValue);
+        handleSave();
+    };
 
     useEffect(() => {
         const func = (e) => { 
@@ -31,20 +40,36 @@ const Modal:React.FC<ModalProp> = ({ show, handleClose }) => {
             <div ref={modalRef} className="modal-window">
                 <div className="modal-box">
                     <div className="modal-header">
-                        <p>Modal Title</p>
+                        <p>{title}</p>
                         <div>
                             <Button btnType="danger" onClick={handleClose}  btnIcon={faTimes} />
                         </div>
                     </div>
 
                     <div className="modal-content">
-                        Modal content to check if it is displayed correctly
+                        {!addPassword ? content : (
+                            <input 
+                                type="text" 
+                                className="modal-input" 
+                                value={modalInputValue}
+                                onChange={(e) => setModalInputValue(e.target.value)}
+                                placeholder="Set password"
+                            />
+                        )}
                     </div>
 
                     <div className="modal-buttons">
                         <div>
-                            <Button btnType="danger" onClick={handleClose} label="Close" />
-                            <Button btnType="normal" onClick={() => {}} label="Save changes" />
+                            <Button 
+                                btnType="danger" 
+                                onClick={!addPassword ? () => handleSave() : () => setAddPassword(false)} 
+                                label={!addPassword ? "No" : "Cancel"} 
+                            />
+                            <Button 
+                                btnType="normal"   
+                                onClick={!addPassword ? () => setAddPassword(true) : () => setPassword()} 
+                                label={!addPassword ? "Yes" : "Join"} 
+                            />
                         </div>
                     </div>
                 </div>
