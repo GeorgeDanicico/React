@@ -3,6 +3,7 @@ const socketio = require('socket.io');
 const http = require('http');
 
 const { addUser, removeUser, getUser, getUsersInRoom } = require('./users.js')
+const { addRoom, removeRoom, getRoom } = require('./rooms');
 
 const PORT = process.env.PORT || 5000
 
@@ -49,7 +50,30 @@ io.on('connection', (socket) => {
         }
     })
 })
-
+  
+app.use(express.json());
 app.use(router);
+
+app.get('/rooms/:room', (req, res) => {
+    const { room } = req.params; 
+
+    const requiredRoom = getRoom(room);
+
+    res.status(200).send(
+        requiredRoom
+    );
+});
+
+app.post('/rooms', (req, res) => {
+
+    const { room, password } = req.body;
+    res.status(200).send({ response: "success" });
+
+    if (addRoom(room, password)) {
+        res.status(200).send({ response: "success" });
+    } else {
+        res.status(404).send({ message: "error" })
+    }
+});
 
 server.listen(PORT, () => console.log(`Server has started on port ${PORT}`));
