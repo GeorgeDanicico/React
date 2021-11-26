@@ -5,6 +5,7 @@ import io from "socket.io-client";
 import { useLocation } from "react-router";
 import InfoBar from "../InfoBar/InfoBar";
 import InputComponent from "../InputComponent/InputComponent";
+import { ENDPOINT } from "../../utils/interfaces";
 import Messages from "../Messages/Messages";
 import { messagesObj } from "../../utils/interfaces";
 import { useAppDispatch, useAppSelector } from "../../utils/hooks";
@@ -23,7 +24,6 @@ const Chat: React.FC = () => {
     const [roomUsers, setRoomUsers] = useState<User[]>([]);
     const [message, setMessage] = useState<string>('');
     const [messages, setMessages] = useState<messagesObj[]>(chatMessages);
-    const ENDPOINT = 'localhost:5000';
     const location = useLocation();
     const dispatch = useAppDispatch();
 

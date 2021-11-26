@@ -12,9 +12,18 @@ const Modal:React.FC<ModalProp> = ({
     const [addPassword, setAddPassword] = useState<boolean>(false);
 
     const setPassword = () => {
-        localStorage.setItem('roomPass', modalInputValue);
-        handleSave();
+        const roomPass = localStorage.getItem("roomPass");
+
+        console.log(modalInputValue, roomPass);
+
+        if (modalInputValue === roomPass) {
+            handleSave();
+        }
     };
+
+    useEffect(() => {
+        setAddPassword(modalType === "insertPassword" ? true : false);
+    }, [modalType])
 
     useEffect(() => {
         const func = (e) => { 

@@ -1,3 +1,5 @@
+export const ENDPOINT = 'localhost:5000';
+
 export interface InputProp {
     message: string,
     setMessage: React.Dispatch<React.SetStateAction<string>>,
