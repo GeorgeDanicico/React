@@ -14,12 +14,32 @@ const Modal:React.FC<ModalProp> = ({
     const setPassword = () => {
         const roomPass = localStorage.getItem("roomPass");
 
-        console.log(modalInputValue, roomPass);
-
         if (modalInputValue === roomPass) {
             handleSave();
         }
     };
+
+    const handleCancelBtn = () => {
+        if (modalType === "insertPassword") {
+            handleClose();
+        } else {
+            if (!addPassword) { 
+                localStorage.setItem("roomPass", "");
+                handleSave(); 
+            }
+            else { 
+                setAddPassword(false);
+            }
+        }
+    }
+
+    const handleJoinBtn = () => {
+        if (!addPassword) {
+            setAddPassword(true)
+        } else {
+            setPassword();
+        }
+    }
 
     useEffect(() => {
         setAddPassword(modalType === "insertPassword" ? true : false);
@@ -62,7 +82,8 @@ const Modal:React.FC<ModalProp> = ({
                                 className="modal-input" 
                                 value={modalInputValue}
                                 onChange={(e) => setModalInputValue(e.target.value)}
-                                placeholder="Set password"
+                                placeholder={modalType === "setPassword" ? "Set password" 
+                                    : "Insert password"}
                             />
                         )}
                     </div>
@@ -71,12 +92,12 @@ const Modal:React.FC<ModalProp> = ({
                         <div>
                             <Button 
                                 btnType="danger" 
-                                onClick={!addPassword ? () => handleSave() : () => setAddPassword(false)} 
+                                onClick={() => handleCancelBtn()} 
                                 label={!addPassword ? "No" : "Cancel"} 
                             />
                             <Button 
                                 btnType="normal"   
-                                onClick={!addPassword ? () => setAddPassword(true) : () => setPassword()} 
+                                onClick={() => handleJoinBtn()} 
                                 label={!addPassword ? "Yes" : "Join"} 
                             />
                         </div>

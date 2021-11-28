@@ -1,15 +1,16 @@
 const rooms = [{
     room: "1234",
     password: "1111",
+}, {
+    room: "1212",
+    password: "",
 }]
 
 const addRoom = (name, password) => {
     const roomAlreadyExists = rooms.find((room) => room.room === name);
 
-    console.log("crash here");
-
     if (!roomAlreadyExists) {
-        rooms.push({ name, password });
+        rooms.push({ room: name, password });
         return true; // return true if a new room was created;
     }
     return false; // return false if the room already exists and warn the user.
@@ -24,5 +25,9 @@ const getRoom = (name) => {
     return reqRoom;
 }
 
-module.exports = { addRoom, removeRoom, getRoom }
+const getAllRooms = () => {
+    return rooms;
+}
+
+module.exports = { addRoom, removeRoom, getRoom, getAllRooms }
 

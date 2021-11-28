@@ -6,35 +6,62 @@ import './style.css';
 const Join: React.FC = () => {
     const [name, setName] = useState<string>('');
     const [room, setRoom] = useState<string>('');
-    const [roomPassword, setRoomPassword] = useState<string>('');
     const [requiredPassword, setRequiredPassword] = useState<boolean>(false);
     const [showModal, setShowModal] = useState<boolean>(false);
+    const [roomExistence, setRoomExistence] = useState<boolean>(false);
     const navigate = useNavigate();
 
-    const handleSave = () => {
+    const handleSave = async () => {
         const password = localStorage.getItem('roomPass');
-        console.log(password);
-        navigate(`/chat?name=${name}&room=${room}`)
+        const data = {
+            room: room, 
+            password: password
+        };
+
+        if (!roomExistence) {
+            await fetch('http://localhost:5000/rooms', {
+            method: 'POST',
+            headers: {
+                "Content-Type": "application/json"
+            },
+                body: JSON.stringify(data),
+            });
+        }
+
+        navigate(`/chat?name=${name}&room=${room}`);
     }
 
-    useEffect(() => {
-
-        if (showModal) {
-            fetch(`http://localhost:5000/rooms/${room}`, {
+    const handleSignIn = async () => {
+        if (name && room) {
+            await fetch(`http://localhost:5000/rooms/${room}`, {
                 method: 'GET',
             }).then((response) => response.json().then((result) => {
-                setRoomPassword(result.password);
-                setRequiredPassword(true);
+                
+                if (result.password === "") {
+                    navigate(`/chat?name=${name}&room=${room}`);
+                } else {
+                    setRoomExistence(true);
+                    setRequiredPassword(true);
+                    setShowModal(true);
+                }
+
                 localStorage.setItem("roomPass", result.password);
             }))
             .catch(() => {
                 setRequiredPassword(false);
+                setShowModal(true);
             });
         }
-    }, [showModal, room]);
-
+    }
 
     const handleCancel = () => { setShowModal(false) };
+
+    useEffect(() => {
+        setRequiredPassword(false);
+        setRoomExistence(false);
+        setRoom("");
+        setName("");
+    }, []);
 
     return (
     <div className="joinOuterContainer">
@@ -44,7 +71,7 @@ const Join: React.FC = () => {
             <div><input placeholder="Name" value={name} className="joinInput" type="text" onChange={(e) => setName(e.target.value)} /></div>
             <div><input placeholder="Room" value={room} className="joinInput mt-20" type="text" onChange={(e) => setRoom(e.target.value)} /></div>
 
-            <button className="button mt-20" onClick={() => setShowModal(true)}>Sign In</button>
+            <button className="button mt-20" onClick={() => handleSignIn()}>Sign In</button>
         </div>
         <Modal 
             show={showModal} 

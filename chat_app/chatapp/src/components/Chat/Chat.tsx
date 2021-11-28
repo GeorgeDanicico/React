@@ -50,8 +50,6 @@ const Chat: React.FC = () => {
             setRoom(roomData.room);
             setRoomUsers(roomData.users);
         })
-
-        console.log(roomUsers);
     }, [roomUsers]);
 
     useEffect(() => {
