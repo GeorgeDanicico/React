@@ -8,7 +8,7 @@ import InputComponent from "../InputComponent/InputComponent";
 import { ENDPOINT } from "../../utils/interfaces";
 import Messages from "../Messages/Messages";
 import { messagesObj } from "../../utils/interfaces";
-import { useAppDispatch, useAppSelector } from "../../utils/hooks";
+import { useAppDispatch } from "../../utils/hooks";
 import messageActions from "../../redux/actions/messageActions";
 import TextContainer from "../TextContainer/TextContainer";
 import { User } from "../../utils/interfaces";
@@ -17,13 +17,11 @@ import './style.css';
 let socket;
 
 const Chat: React.FC = () => {
-    const chatMessages = useAppSelector((state) => state.message.messages)
-
     const [name, setName] = useState<string>('');
     const [room, setRoom] = useState<string>('');
     const [roomUsers, setRoomUsers] = useState<User[]>([]);
     const [message, setMessage] = useState<string>('');
-    const [messages, setMessages] = useState<messagesObj[]>(chatMessages);
+    const [messages, setMessages] = useState<messagesObj[]>([]);
     const location = useLocation();
     const dispatch = useAppDispatch();
 

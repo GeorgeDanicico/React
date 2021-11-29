@@ -12,11 +12,9 @@ const Modal:React.FC<ModalProp> = ({
     const [addPassword, setAddPassword] = useState<boolean>(false);
 
     const setPassword = () => {
-        const roomPass = localStorage.getItem("roomPass");
+        localStorage.setItem("roomPass", modalInputValue);
 
-        if (modalInputValue === roomPass) {
-            handleSave();
-        }
+        handleSave();
     };
 
     const handleCancelBtn = () => {

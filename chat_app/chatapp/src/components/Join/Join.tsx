@@ -6,13 +6,14 @@ import './style.css';
 const Join: React.FC = () => {
     const [name, setName] = useState<string>('');
     const [room, setRoom] = useState<string>('');
+    const [roomPassword, setRoomPassword] = useState<string>('');
     const [requiredPassword, setRequiredPassword] = useState<boolean>(false);
     const [showModal, setShowModal] = useState<boolean>(false);
     const [roomExistence, setRoomExistence] = useState<boolean>(false);
     const navigate = useNavigate();
 
     const handleSave = async () => {
-        const password = localStorage.getItem('roomPass');
+        const password = await localStorage.getItem('roomPass');
         const data = {
             room: room, 
             password: password
@@ -26,9 +27,10 @@ const Join: React.FC = () => {
             },
                 body: JSON.stringify(data),
             });
+            navigate(`/chat?name=${name}&room=${room}`);
+        } else if (roomPassword === password) {
+           navigate(`/chat?name=${name}&room=${room}`); 
         }
-
-        navigate(`/chat?name=${name}&room=${room}`);
     }
 
     const handleSignIn = async () => {
@@ -40,6 +42,7 @@ const Join: React.FC = () => {
                 if (result.password === "") {
                     navigate(`/chat?name=${name}&room=${room}`);
                 } else {
+                    setRoomPassword(result.password);
                     setRoomExistence(true);
                     setRequiredPassword(true);
                     setShowModal(true);
