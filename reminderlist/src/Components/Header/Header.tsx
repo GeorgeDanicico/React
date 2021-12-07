@@ -17,7 +17,7 @@ const Header: React.FC<IHeaderProps> = (props) => {
                 height="30"
                 className="d-inline-block align-top"
                 />{' '}
-                React Bootstrap
+                Save your notes
             </Navbar.Brand>
         </Container>
       </Navbar>
