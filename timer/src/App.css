@@ -1,0 +1,22 @@
+.timer-container {
+    background-color: black;
+    position: relative;
+    height:100%;
+    width: 100%;
+}
+
+.timer {
+    text-align: center;
+    font-size: 300px;
+    background-color: black;
+    color: white;
+    padding: 10px;
+}
+
+.input-container {
+    margin: 100px 450px;
+}
+
+.buttons-container {
+    margin: 0 500px;
+}
