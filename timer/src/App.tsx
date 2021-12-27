@@ -1,13 +1,27 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useCallback } from 'react';
+import { Button } from '@material-ui/core';
+import { makeStyles } from '@material-ui/styles';
 import './App.css';
 
+const useStyles = makeStyles({
+      button: {
+        margin: '0 10px',
+        background: 'linear-gradient(45deg, #2196F3 30%, #21CBF3 90%)',
+        boxShadow: '0 3px 5px 2px rgba(33, 203, 243, .3)',
+      }
+});
+
 const App: React.FC = () => {
+  const classes = useStyles();
+
   const [timerTime, setTimerTime] = useState<number>(7200);
   const [startTimer, setStartTimer] = useState<boolean>(false);
+  const [showAlert, setShowAlert] = useState<boolean>(false);
   const [hours, setHours] = useState<number>(2);
   const [minutes, setMinutes] = useState<number>(0);
   const [seconds, setSeconds] = useState<number>(0);
-  let timeout = null;
+
+  const alarm = new Audio('/alarm.mp3');
 
   const convertTimeToString: () => string = () => {
     let seconds = timerTime % 60 ;
@@ -21,18 +35,42 @@ const App: React.FC = () => {
     return hoursS + ":" + minutesS + ":" + secondsS;
   }
 
+  const updateTimes = () => {
+    let s = (timerTime - 1) % 60 ;
+    let m = Math.floor((timerTime - 1) / 60) % 60;
+    let h = Math.floor(Math.floor((timerTime - 1) / 60) / 60);
+
+    if (seconds !== s) {
+      setSeconds(s);
+    }
+    if (minutes !== m) {
+      setMinutes(m);
+    }
+    if (hours !== h) {
+      setHours(h);
+    }
+
+    setTimerTime(prev => prev - 1);
+  }
+
   useEffect(() => {
     if (startTimer) {
       if (timerTime > 0) {
         setTimeout(() => {
-          setTimerTime(prev => prev - 1);
+          updateTimes();
         }, 1000);
+      } else {
+        setStartTimer(false);
+        alarm.play();
       }
     }
   }, [startTimer, timerTime]);
 
   const handleStart: () => void = () => {
-    setStartTimer(true);
+
+    if (timerTime > 0) {
+      setStartTimer(true);
+    }
   };
 
   const handleStop: () => void = () => {
@@ -42,6 +80,9 @@ const App: React.FC = () => {
   const handleReset = () => {
     setTimerTime(0);
     setStartTimer(false);
+    setHours(0);
+    setMinutes(0);
+    setSeconds(0);
   };
 
   const handleChange: (e: React.ChangeEvent<HTMLInputElement>, c: number) => void = (e, c) => {
@@ -66,7 +107,7 @@ const App: React.FC = () => {
   return (
     <div className="timer-container">
       <div className="timer">
-        {convertTimeToString()}
+        {convertTimeToString()} 
       </div>
 
       <div className="input-container">
@@ -76,9 +117,16 @@ const App: React.FC = () => {
       </div>
 
       <div className="buttons-container">
-        <button onClick={handleStart}>Start</button>
-        <button onClick={handleStop}>Stop</button>
-        <button onClick={handleReset}>Reset</button>
+        <Button className={classes.button} variant="contained" onClick={handleStart}>
+          Start
+        </Button>
+
+        <Button className={classes.button} variant="contained" onClick={handleStop}>
+          Stop
+        </Button>
+        <Button className={classes.button} variant="contained" onClick={handleReset}>
+          Reset
+        </Button>
       </div>
     </div>
   );
