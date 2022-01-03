@@ -1,5 +1,6 @@
 import React, { useEffect, useState, useCallback } from 'react';
 import { Button } from '@material-ui/core';
+import SimpleModal from './Modal';
 import { makeStyles } from '@material-ui/styles';
 import './App.css';
 
@@ -8,8 +9,13 @@ const useStyles = makeStyles({
         margin: '0 10px',
         background: 'linear-gradient(45deg, #2196F3 30%, #21CBF3 90%)',
         boxShadow: '0 3px 5px 2px rgba(33, 203, 243, .3)',
+      },
+      paper: {
+        position: 'absolute',
+        width: '400px',
       }
 });
+
 
 const App: React.FC = () => {
   const classes = useStyles();
@@ -23,7 +29,7 @@ const App: React.FC = () => {
 
   const alarm = new Audio('/alarm.mp3');
 
-  const convertTimeToString: () => string = () => {
+  const convertTimeToString = useCallback(() => {
     let seconds = timerTime % 60 ;
     let minutes = Math.floor(timerTime / 60) % 60;
     let hours = Math.floor(Math.floor(timerTime / 60) / 60);
@@ -33,7 +39,7 @@ const App: React.FC = () => {
     const hoursS = hours > 9 ? String(hours) : "0" + String(hours)
 
     return hoursS + ":" + minutesS + ":" + secondsS;
-  }
+  }, [timerTime]);
 
   const updateTimes = () => {
     let s = (timerTime - 1) % 60 ;
@@ -61,6 +67,7 @@ const App: React.FC = () => {
         }, 1000);
       } else {
         setStartTimer(false);
+        setShowAlert(true);
         alarm.play();
       }
     }
@@ -78,16 +85,28 @@ const App: React.FC = () => {
   }
 
   const handleReset = () => {
-    setTimerTime(0);
     setStartTimer(false);
-    setHours(0);
-    setMinutes(0);
-    setSeconds(0);
+
+    setTimeout(() => {
+      setTimerTime(0);
+      setHours(0);
+      setMinutes(0);
+      setSeconds(0);
+    }, 1000);
   };
 
   const handleChange: (e: React.ChangeEvent<HTMLInputElement>, c: number) => void = (e, c) => {
     const power: number = Math.pow(60, (c - 1));
     let val: number = 0;
+
+    if (e.target.value === '') {
+      setHours(0);
+      setMinutes(0);
+      setSeconds(0);
+
+      return;
+    }
+
     if (c === 3) {
       val = hours;
       setHours(parseInt(e.target.value));
@@ -128,6 +147,9 @@ const App: React.FC = () => {
           Reset
         </Button>
       </div>
+
+      <SimpleModal open={showAlert} handleClose={() => { setShowAlert(false)}} />
+
     </div>
   );
 }
