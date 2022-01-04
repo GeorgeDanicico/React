@@ -1,12 +1,16 @@
 import React from 'react';
 import { makeStyles, Theme, createStyles } from '@material-ui/core/styles';
 import Modal from '@material-ui/core/Modal';
+import './style.css';
 
 function getModalStyle() {
   const top = 50;
   const left = 50;
 
   return {
+    borderRadius: `20px`,
+    backgroundColor: `grey`,
+    fontFamily: `"Lucida Console", "Courier New", monospace`,
     top: `${top}%`,
     left: `${left}%`,
     transform: `translate(-${top}%, -${left}%)`,
@@ -38,8 +42,8 @@ const SimpleModal: React.FC<IAModal> = ({ open, handleClose}) => {
 
   const body = (
     <div style={modalStyle} className={classes.paper}>
-      <h2 id="simple-modal-title">TIME'S UP</h2>
-      <p id="simple-modal-description">
+      <h2 className="modal" id="simple-modal-title">TIME'S UP</h2>
+      <p className="modal" id="simple-modal-description">
         IT'S TIME FOR A BREAK.
       </p>
       {/* <SimpleModal /> */}
