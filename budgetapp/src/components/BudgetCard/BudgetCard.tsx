@@ -3,7 +3,7 @@ import { Card, ProgressBar, Stack, Button } from 'react-bootstrap';
 import { IProps } from './types';
 import { currencyFormater } from "../../utils";
 
-const BudgetCard: React.FC<IProps> = ({ name, amount, maximum, gray }) => {
+const BudgetCard: React.FC<IProps> = ({ name, amount, maximum, gray, onAddExpenseClick }) => {
 
     const classNames = []
     if (amount >= maximum) {
@@ -43,7 +43,13 @@ const BudgetCard: React.FC<IProps> = ({ name, amount, maximum, gray }) => {
                 />
 
                 <Stack direction="horizontal" gap={2} className="mt-4">
-                    <Button variant="outline-primary" className="ms-auto">Add Expenses</Button> 
+                    <Button 
+                        variant="outline-primary" 
+                        className="ms-auto"
+                        onClick={onAddExpenseClick}
+                    >
+                        Add Expenses
+                    </Button> 
                     <Button variant="outline-secondary">View Expenses</Button>
                 </Stack>
             </Card.Body>

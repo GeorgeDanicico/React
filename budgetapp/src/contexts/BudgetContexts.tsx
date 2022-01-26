@@ -1,5 +1,6 @@
-import React, { useState, useContext } from "react";
+import React, { useContext } from "react";
 import { v4 as uuidV4} from 'uuid';
+import useLocalStorage from '../hooks/useLocalStorage';
 
 type BudgetType = {
     id: string,
@@ -14,9 +15,12 @@ type ExpenseType = {
     description: string,
 }
 
+export const UNCATEGORIZED_BUDGET_ID = 'Uncategorized';
+
 interface ContextInterface {
     budgets: BudgetType[],
     expenses: ExpenseType[],
+    getAmountOfBudget: (budgetId: string) => number,
     getBudgetExpenses: (budgetId: string) => void,
     addBudget: (name: string, maxValue: number) => void,
     addExpense: (bugdetId: string, amount: number, description: string) => void,
@@ -31,10 +35,21 @@ export const useBudgets = () => {
 };
 
 export const BudgetsProvider: (children: any) => any = ({ children }) => {
-    const [budgets, setBudgets] = useState<BudgetType[]>([]);
-    const [expenses, setExpenses] = useState<ExpenseType[]>([]);
+    const budgetsArray: BudgetType[] = [];
+    const expensesArray: ExpenseType[] = [];
+
+    const [budgets, setBudgets] = useLocalStorage<BudgetType>('bugets', budgetsArray);
+    const [expenses, setExpenses] = useLocalStorage<ExpenseType>('expenses', expensesArray);
     
-    const getBudgetExpenses: (budgetId: string) => ExpenseType[] = (budgetId) => {
+    const getAmountOfBudget: (budgetId: string) => number = (budgetId) => {
+        return expenses.reduce((total, expense) => {
+            if (expense.budgetId === budgetId) {
+                return total + expense.amount;
+            } else return 0;
+        }, 0);
+    }
+
+    const getBudgetExpenses: (budgetId: string) => any[] = (budgetId) => {
         return expenses.filter(expense => expense.budgetId = budgetId);
     }
 
@@ -76,6 +91,7 @@ export const BudgetsProvider: (children: any) => any = ({ children }) => {
         <BudgetsContext.Provider value={{
             budgets, 
             expenses,
+            getAmountOfBudget,
             getBudgetExpenses,
             addExpense,
             addBudget,
