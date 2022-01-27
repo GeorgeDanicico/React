@@ -21,7 +21,7 @@ interface ContextInterface {
     budgets: BudgetType[],
     expenses: ExpenseType[],
     getAmountOfBudget: (budgetId: string) => number,
-    getBudgetExpenses: (budgetId: string) => void,
+    getBudgetExpenses: (budgetId: string) => ExpenseType[],
     addBudget: (name: string, maxValue: number) => void,
     addExpense: (bugdetId: string, amount: number, description: string) => void,
     deleteBudget: (budgetId: string) => void,
@@ -49,8 +49,8 @@ export const BudgetsProvider: (children: any) => any = ({ children }) => {
         }, 0);
     }
 
-    const getBudgetExpenses: (budgetId: string) => any[] = (budgetId) => {
-        return expenses.filter(expense => expense.budgetId = budgetId);
+    const getBudgetExpenses: (budgetId: string) => ExpenseType[] = (budgetId) => {
+        return expenses.filter(expense => expense.budgetId === budgetId);
     }
 
     const addExpense: (budgetId: string, amount: number, description: string) => void = (budgetId, amount, description) => {

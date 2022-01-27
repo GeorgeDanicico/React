@@ -3,7 +3,10 @@ import { Card, ProgressBar, Stack, Button } from 'react-bootstrap';
 import { IProps } from './types';
 import { currencyFormater } from "../../utils";
 
-const BudgetCard: React.FC<IProps> = ({ name, amount, maximum, gray, onAddExpenseClick }) => {
+const BudgetCard: React.FC<IProps> = ({ 
+    name, amount, maximum, gray, onAddExpenseClick, showButtons, nomax,
+    onViewExpensesClick,
+ }) => {
 
     const classNames = []
     if (amount >= maximum) {
@@ -29,9 +32,11 @@ const BudgetCard: React.FC<IProps> = ({ name, amount, maximum, gray, onAddExpens
                     </div>
                     <div className="d-flex align-items-baseline">
                         {currencyFormater.format(amount)}
-                        <span className="text-muted fs-6 ms-1">
-                            / {currencyFormater.format(maximum)}
-                        </span>
+                        {!nomax && (
+                            <span className="text-muted fs-6 ms-1">
+                                / {currencyFormater.format(maximum)}
+                            </span>
+                        )}
                     </div>
                 </Card.Title>
 
@@ -42,16 +47,23 @@ const BudgetCard: React.FC<IProps> = ({ name, amount, maximum, gray, onAddExpens
                     min={0}
                 />
 
-                <Stack direction="horizontal" gap={2} className="mt-4">
-                    <Button 
-                        variant="outline-primary" 
-                        className="ms-auto"
-                        onClick={onAddExpenseClick}
-                    >
-                        Add Expenses
-                    </Button> 
-                    <Button variant="outline-secondary">View Expenses</Button>
-                </Stack>
+                {showButtons && (
+                    <Stack direction="horizontal" gap={2} className="mt-4">
+                        <Button 
+                            variant="outline-primary" 
+                            className="ms-auto"
+                            onClick={onAddExpenseClick}
+                        >
+                            Add Expenses
+                        </Button> 
+                        <Button 
+                            variant="outline-secondary"
+                            onClick={onViewExpensesClick}
+                        >
+                            View Expenses
+                        </Button>
+                    </Stack>
+                )}
             </Card.Body>
         </Card>
     )
