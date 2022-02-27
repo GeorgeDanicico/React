@@ -1,15 +1,15 @@
 import React, { useState } from 'react';
 import { Button, Stack } from 'react-bootstrap';
 import Container from 'react-bootstrap/Container';
-import BudgetCard from './components/BudgetCard/BudgetCard';
-import AddBudgetModal from './components/AddBudgetModal/AddBudgetModal';
-import AddExpenseModal from './components/AddExpenseModal/AddExpenseModal';
-import ViewExpensesModal from './components/ViewExpensesModal/ViewExpensesModal';
-import { UNCATEGORIZED_BUDGET_ID, useBudgets } from './contexts/BudgetContexts';
-import UncategorizedBudgetCard from './components/UncategorizedBudgetCard/UncategorizedBudgetCard';
-import TotalBudgetCard from './components/TotalBudgetCard/TotalBudgetCard';
+import BudgetCard from '../components/BudgetCard/BudgetCard';
+import AddBudgetModal from '../components/AddBudgetModal/AddBudgetModal';
+import AddExpenseModal from '../components/AddExpenseModal/AddExpenseModal';
+import ViewExpensesModal from '../components/ViewExpensesModal/ViewExpensesModal';
+import { UNCATEGORIZED_BUDGET_ID, useBudgets } from '../contexts/BudgetContexts';
+import UncategorizedBudgetCard from '../components/UncategorizedBudgetCard/UncategorizedBudgetCard';
+import TotalBudgetCard from '../components/TotalBudgetCard/TotalBudgetCard';
 
-const App: React.FC = () => {
+const ViewBudgets: React.FC = () => {
   const [showAddButtonModal, setShowAddButtonModal] = useState<boolean>(false);
   const [showAddExpenseModal, setShowAddExpenseModal] = useState<boolean>(false);
   const [addExpensesModalBudgetId, setAddExpensesModalBudgetId] = useState<string>('');
@@ -89,5 +89,4 @@ const App: React.FC = () => {
   )
 }
 
-
-export default App;
+export default ViewBudgets;

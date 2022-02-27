@@ -23,7 +23,7 @@ interface ContextInterface {
     getAmountOfBudget: (budgetId: string) => number,
     getBudgetExpenses: (budgetId: string) => ExpenseType[],
     addBudget: (name: string, maxValue: number) => void,
-    addExpense: (bugdetId: string, amount: number, description: string) => void,
+    addExpense: (budgetId: string, amount: number, description: string) => void,
     deleteBudget: (budgetId: string) => void,
     deleteExpense: (expenseId: string) => void,
 };
@@ -34,7 +34,7 @@ export const useBudgets = () => {
     return useContext(BudgetsContext);
 };
 
-export const BudgetsProvider: (children: any) => any = ({ children }) => {
+export const BudgetsProvider: (children: any) => JSX.Element = ({ children }) => {
     const budgetsArray: BudgetType[] = [];
     const expensesArray: ExpenseType[] = [];
 
