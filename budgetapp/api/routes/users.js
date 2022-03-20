@@ -21,7 +21,6 @@ router.route('/:id')
     res.send(`User Delete ID ${req.params.id}`)
   })
 
-const users = [{ name: "George" }, { name: "Andrei" }]
 router.param('id', (req, res, next, id) => {
   req.user = users[id]
   next()

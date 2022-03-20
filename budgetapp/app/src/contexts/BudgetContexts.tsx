@@ -1,32 +1,9 @@
 import React, { useContext } from "react";
 import { v4 as uuidV4} from 'uuid';
 import useLocalStorage from '../hooks/useLocalStorage';
-
-type BudgetType = {
-    id: string,
-    name: string,
-    maxValue: number,
-}
-
-type ExpenseType = {
-    id: string,
-    budgetId: string,
-    amount: number,
-    description: string,
-}
+import { BudgetType, ContextInterface, ExpenseType } from "./types";
 
 export const UNCATEGORIZED_BUDGET_ID = 'Uncategorized';
-
-interface ContextInterface {
-    budgets: BudgetType[],
-    expenses: ExpenseType[],
-    getAmountOfBudget: (budgetId: string) => number,
-    getBudgetExpenses: (budgetId: string) => ExpenseType[],
-    addBudget: (name: string, maxValue: number) => void,
-    addExpense: (budgetId: string, amount: number, description: string) => void,
-    deleteBudget: (budgetId: string) => void,
-    deleteExpense: (expenseId: string) => void,
-};
 
 const BudgetsContext = React.createContext({} as ContextInterface);
 
@@ -38,8 +15,8 @@ export const BudgetsProvider: (children: any) => JSX.Element = ({ children }) =>
     const budgetsArray: BudgetType[] = [];
     const expensesArray: ExpenseType[] = [];
 
-    const [budgets, setBudgets] = useLocalStorage<BudgetType>('bugets', budgetsArray);
-    const [expenses, setExpenses] = useLocalStorage<ExpenseType>('expenses', expensesArray);
+    const [budgets, setBudgets] = useLocalStorage<BudgetType[]>('bugets', budgetsArray);
+    const [expenses, setExpenses] = useLocalStorage<ExpenseType[]>('expenses', expensesArray);
     
     const getAmountOfBudget: (budgetId: string) => number = (budgetId) => {
         return expenses.reduce((total, expense) => {

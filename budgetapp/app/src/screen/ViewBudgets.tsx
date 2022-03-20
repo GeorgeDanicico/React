@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { useQuery } from 'react-query';
 import { Button, Stack } from 'react-bootstrap';
 import Container from 'react-bootstrap/Container';
 import BudgetCard from '../components/BudgetCard/BudgetCard';
@@ -9,12 +10,19 @@ import { UNCATEGORIZED_BUDGET_ID, useBudgets } from '../contexts/BudgetContexts'
 import UncategorizedBudgetCard from '../components/UncategorizedBudgetCard/UncategorizedBudgetCard';
 import TotalBudgetCard from '../components/TotalBudgetCard/TotalBudgetCard';
 
+const apiCall = async () => {
+  const res = await fetch('https://swapi.dev/api/planets/');
+  return res.json();
+};
+
 const ViewBudgets: React.FC = () => {
   const [showAddButtonModal, setShowAddButtonModal] = useState<boolean>(false);
   const [showAddExpenseModal, setShowAddExpenseModal] = useState<boolean>(false);
   const [addExpensesModalBudgetId, setAddExpensesModalBudgetId] = useState<string>('');
   const [showViewExpensesModal, setShowViewExpensesModal] = useState<string | null>(null);
   const budgetContext = useBudgets();
+
+  const { data, status } = useQuery("planets", apiCall)
 
   const openAddExpenseModal: (budgetId: string) => void = (budgetId) => {
     setAddExpensesModalBudgetId(budgetId);
