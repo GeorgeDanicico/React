@@ -9,8 +9,7 @@ const userSchema = new mongoose.Schema({
     required: true,
     lowercase: true,
   },
-  bestFriend: mongoose.SchemaTypes.ObjectId,
-  hoobies: [String],
+  password: String,
 })
 
-module.exports = mongoose.model("User", userSchema);
+module.exports = mongoose.model("users", userSchema);
