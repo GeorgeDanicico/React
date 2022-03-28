@@ -1,20 +1,14 @@
+require('dotenv').config();
+
 const express = require('express')
 const router = express.Router();
 const bcrypt = require('bcrypt');
 const mongoose = require('mongoose');
 const userModel = require('../Schema/User')
+const jwt = require('jsonwebtoken');
 
-router.get('/', async (req, res, next) => {
-  next();
+router.get('/', authenticateToken, async (req, res, next) => {
   res.send("users page")
-  
-  userModel.find((err, docs) => {
-    if (!err) {
-        console.log(docs);
-    } else {
-        console.log('Failed to retrieve the Course List: ' + err);
-    }
-  });
 })
 
 router.get('/new', (req, res) => {
@@ -32,17 +26,21 @@ router.post('/login', async (req, res) => {
       const user = query[0];
 
       if (bcrypt.compare(req.body.password, user.password)) {
-        console.log('logged in')
+
+        const accessToken = jwt.sign(
+          {
+            name: user.name,
+            password: user.password,
+          }, process.env.ACCESS_TOKEN_SECRET)
+
+        res.status(200).send({ accessToken: accessToken });
       } else {
-        console.log('error logging');
+        res.json({ error: "UNKNOWN ERROR" });
       }
 
-    } else res.status(500).send();
-
-
-    res.status(201).send();
-  } catch {
-    res.status(500).send();
+    } else res.status(500).send({ error: "UNKNOWN ERROR1" });
+  } catch(err) {
+    res.status(500).send({ error: err.message });
   }
 
 })
@@ -62,5 +60,20 @@ router.param('id', (req, res, next, id) => {
   req.user = users[id]
   next()
 })
+
+function authenticateToken(req, res, next) {
+  const authHeader = req.headers['authorization'];
+  const token = authHeader && authHeader.split(' ')[1];
+
+  if (token == null) return res.sendStatus(401);
+
+  jwt.verify(token, process.env.ACCESS_TOKEN_SECRET, (err, user) => {
+    if (err) return res.sendStatus(403);
+
+    req.user = user;
+
+    next();
+  });
+}
 
 module.exports = router;

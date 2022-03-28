@@ -5,3 +5,8 @@ Content-Type: application/json
   "email": "georgedanicico@yahoo.com",
   "password": "polopolo2001"
 }
+
+###
+
+GET http://localhost:3000/users/
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJwYXNzd29yZCI6IiQyYiQxMCRsc2ZPemc5eFgvelM4UklDbU1QT0N1S2c4eUhGOXFHcWlSSXBxd1RsaHpndFZmcnJIbVV2dSIsImlhdCI6MTY0ODUwNDY3Nn0.39Qd2TPOIlxesMHTcy0fHu1u7EbnIRNYmRDJCwRnF0Y
